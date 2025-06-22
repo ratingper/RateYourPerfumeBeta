@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Scent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="user-info"></div>
+    <div id="email-verification-notice">Please check your inbox to verify your email address.</div>
+    <div id="admin-link-container"></div>
+
+    <div id="page-landing" class="page active"><div class="hero-section"><div class="hero-content"><h1>Find Your Scent</h1><p>Discover and share your favorite perfumes.</p><button class="btn" id="start-discovery">Start Your Discovery</button></div></div><main class="container"></main></div>
+    <div id="page-auth" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><section class="auth-page-content"><h1 id="auth-header">Welcome!</h1><p>Please choose an option to continue.</p><div class="button-group"><button class="btn" id="go-to-login-btn">Login / Sign Up</button><button class="btn" id="continue-as-guest-btn">Continue as Guest</button></div></section></main></div>
+    <div id="page-signup" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><section class="auth-page-content"><h1 id="signup-header">Create an Account</h1><form id="signup-form" novalidate><div class="form-group"><label for="signup-name">Your Name</label><input type="text" id="signup-name" required></div><div class="form-group"><label for="signup-email">Email Address</label><input type="email" id="signup-email" required></div><div class="form-group"><label for="signup-password">Password (min. 6 characters)</label><input type="password" id="signup-password" required minlength="6"></div><button type="submit" class="btn">Create Account</button></form><p style="margin-top:1rem;">Already have an account? <a href="#login" class="text-link">Log In</a></p></section></main></div>
+    <div id="page-login" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><section class="auth-page-content"><h1 id="login-header">Login</h1><form id="login-form" novalidate><div class="form-group"><label for="login-email">Email Address</label><input type="email" id="login-email" required></div><div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div><button type="submit" class="btn">Log In</button></form><div class="auth-separator">OR</div><button class="btn btn-google" id="google-login-btn"><img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjE4cHgiIGhlaWdodD0iMThweCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNNDQuNSAyNGMwLTEuNjEtLjE0LTMuMTYtLjQxLTQuNjVIMjR2OC44NmgxMS41Yy0uNSwzLjU3LTIuMjgsNi42LTE0LjI4IDguODZWNDIuOWg5LjU4YzUuNi01LjE2IDguOC0xMi42MSA4LjgtMjAuNDVaIj48L3BhdGg+PHBhdGggZmlsbD0iI0ZCRkMwNSIgZD0iTTIyLjUgNDVjNS44MyAwIDEwLjcxLTIuMDYgMTQuMjgtNS43N0wyNy4xNyAzMC4xN2MtMS45NCAxLjM1LTYuNTggMS44LTkuNjggMEwzLjM3IDMwLjE3QzcuNjggNDAuMSA4OS4wNyA0NSAyMi41IDQ1WiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNFQTQzMzUiIGQ9Ik0zLjM3IDE3LjgzYzAtMS43My4yOC0zLjQgLjc5LTQuOTJMMC4zIDguODVDLjEgMTEuNTMgMCAxNC40OSAwIDE3Ljgzcy4xIDUuOTYgLjMgOC43NWw0LjA4LTQuMDhjLS41MS0xLjUyLS43OS0zLjE5LS43OS00LjkzWiI+PC9wYXRoPjxwYXRoIGZpbGw9IiM0Mjg1RjQiIGQ9Ik0yMi41IDguODVjMy4xOCAwIDYuMDktMS4xNSA4LjM3LTMuMjdMMzggMEgyMi41QzEzLjkxIDAgNy42OCAxMC4xIDEgMTcuODNsNC4wOC00LjA4YzEuODgtNS4yIDYuNTQtNy45IDkuNTQtNy45WiI+PC9wYXRoPjwvc3ZnPg==" alt="Google logo"><span>Sign in with Google</span></button><p style="margin-top: 1.5rem;">Don't have an account? <a href="#signup" class="text-link">Sign Up</a></p></section></main></div>
+    <div id="page-category-selection" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><h1 id="category-header">Select a Category</h1><section id="category-selection"><div class="card" data-category="him"><h2>For Him</h2></div><div class="card" data-category="her"><h2>For Her</h2></div><div class="card" data-category="parents"><h2>For Parents</h2></div><div class="card" data-category="me"><h2>For Me</h2></div></section></main></div>
+    <div id="page-question" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><section id="question-page-content"><h1 id="question-header"></h1><p>Have you ever used any perfume in this category?</p><div class="button-group"><button id="yes-button" class="btn">Yes</button><button id="no-button" class="btn">No</button></div></section></main></div>
+    <div id="page-review" class="page"><a href="#landing" class="btn btn-home">Home</a><main class="container"><section id="review-page-content"><h1 id="review-header"></h1><form id="review-form"><div class="form-group"><label for="photo">Upload Photo</label><input type="file" id="photo" accept="image/*"><img id="photo-preview" class="photo-preview" src="" alt="Photo Preview"></div><div class="form-group"><label>Rating</label><div class="star-rating" id="star-rating" role="radiogroup"><span class="star" data-value="1" role="radio">&#9733;</span><span class="star" data-value="2" role="radio">&#9733;</span><span class="star" data-value="3" role="radio">&#9733;</span><span class="star" data-value="4" role="radio">&#9733;</span><span class="star" data-value="5" role="radio">&#9733;</span></div></div><div class="form-group"><label for="title">Perfume Name / Title</label><input type="text" id="title" required></div><div class="form-group"><label for="comments">Comments</label><textarea id="comments" rows="4" required></textarea></div><div class="form-group"><label for="date-used">Date First Used</label><input type="date" id="date-used" required></div><button type="submit" id="submit-review" class="btn" disabled>Submit Review</button></form></section></main></div>
+    <div id="page-main" class="page"><a href="#landing" class="btn btn-home">Home</a><header class="page-header"><h1 id="main-header"></h1><div class="filters"><label for="sort-by">Sort By:</label><select id="sort-by"><option value="newest">Newest First</option><option value="oldest">Oldest First</option><option value="highest-rating">Highest Rating</option><option value="lowest-rating">Lowest Rating</option></select></div></header><main class="container"><section id="reviews-grid"></section></main></div>
+    <div id="thank-you-modal" class="modal" role="dialog"><div class="modal-content"><h2 id="modal-title"></h2><p id="modal-message"></p><button id="close-modal" class="btn">Close</button></div></div>
+    
+    <div id="page-admin" class="page">
+        <a href="#landing" class="btn btn-home">Home</a>
+        <header class="page-header">
+            <h1 id="admin-header">Admin Panel</h1>
+            <p>Approve or reject new reviews.</p>
+        </header>
+        <main class="container">
+            <section id="admin-reviews-grid"></section>
+        </main>
+    </div>
+
+    <noscript><p class="no-js-message">Please enable JavaScript to fully use this website.</p></noscript>
+    <script type="module" src="js/script.js"></script>
+</body>
+</html>
