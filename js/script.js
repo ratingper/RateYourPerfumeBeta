@@ -4,22 +4,18 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, creat
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // --- FIREBASE INITIALIZATION ---
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBz6KfTqDjepXYgDttLH45KFAA3kdLFjIE",
-  authDomain: "rateyourperfume-cc678.firebaseapp.com",
-  projectId: "rateyourperfume-cc678",
-  storageBucket: "rateyourperfume-cc678.firebasestorage.app",
-  messagingSenderId: "969191542334",
-  appId: "1:969191542334:web:fce83e13f43690e1890b6f",
-  measurementId: "G-4G6R7N3J5R"
+    apiKey: "AIzaSyDuM804L-1zEvcP8i0KiNYU2vXaLSbW3nc",
+    authDomain: "perfume-rating.firebaseapp.com",
+    projectId: "perfume-rating",
+    storageBucket: "perfume-rating.appspot.com",
+    messagingSenderId: "1037621518138",
+    appId: "1:1037621518138:web:13302a5e55930a46c6ba03",
+    measurementId: "G-3NCT4SYQ8Q"
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 // --- CLOUDINARY CONFIGURATION ---
 const CLOUDINARY_CLOUD_NAME = 'djb6fug6g';
