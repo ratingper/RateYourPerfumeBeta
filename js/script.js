@@ -108,6 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.page');
     const navigateTo = (hash) => {
         const cleanHash = (hash.split('?')[0] || '#landing') || '#landing';
+
+        // ======= FIX HERE: Redirect logged-in users away from login/signup pages =======
+        if (state.user && ['#login', '#signup'].includes(cleanHash)) {
+            window.location.hash = '#category-selection';
+            return;
+        }
+        // ===============================================================================
+
         const targetPage = document.querySelector(`#page-${cleanHash.substring(1)}`);
         pages.forEach(p => p.classList.remove('active'));
         if (targetPage) {
@@ -347,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 target.closest('.admin-actions').innerHTML = `<p style="text-align: right; font-weight: bold; color: ${newStatus === 'approved' ? 'var(--accent-gold)' : '#aaa'}">${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}</p>`;
             } catch (error) {
                 console.error("Error updating review status:", error);
-                alert("Failed to update status.");
+                alert("Failed to update status. Try again.");
                 target.disabled = false;
             }
         });
@@ -355,14 +363,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showThankYouModal(title, message) {
         const modal = document.getElementById('thank-you-modal');
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-message').textContent = message;
-        modal.classList.add('active');
-        document.getElementById('close-modal').onclick = () => {
-            modal.classList.remove('active');
-            if (state.user?.id !== ADMIN_UID) {
-                window.location.hash = `#main?category=${state.category || 'her'}`;
-            }
-        };
+        modal.querySelector('h2').textContent = title;
+        modal.querySelector('p').textContent = message;
+        modal.classList.add('show');
+        setTimeout(() => modal.classList.remove('show'), 3000);
+        window.location.hash = '#main?category=' + encodeURIComponent(state.category || '');
     }
+
+    // --- INIT ---
+    if (!window.location.hash) window.location.hash = '#landing';
 });
