@@ -426,26 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 perfumeMap.get(normTitle).reviews.push(review);
             }
 
-            // Sort perfumes based on sort-by selection
-            const sortBy = document.getElementById('sort-by').value;
-            const perfumeArray = Array.from(perfumeMap.entries());
-            perfumeArray.sort((a, b) => {
-                const [normTitleA, dataA] = a;
-                const [normTitleB, dataB] = b;
-                if (sortBy === 'rating') {
-                    const avgRatingA = dataA.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / dataA.reviews.length;
-                    const avgRatingB = dataB.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / dataB.reviews.length;
-                    return avgRatingB - avgRatingA; // Descending order
-                } else {
-                    // Default to newest (timestamp)
-                    const latestTimestampA = Math.max(...dataA.reviews.map(r => r.timestamp.toMillis()));
-                    const latestTimestampB = Math.max(...dataB.reviews.map(r => r.timestamp.toMillis()));
-                    return latestTimestampB - latestTimestampA; // Descending order
-                }
-            });
-
-            // Render sorted perfumes
-            perfumeArray.forEach(([normTitle, data]) => {
+            perfumeMap.forEach((data, normTitle) => {
                 const { originalTitle, photo, reviews } = data;
 
                 const card = document.createElement('div');
@@ -613,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p>${review.comments}</p>
                         </div>
                         <div class="admin-actions">
-                            <button class="btn btn-approve" data-id="${review.id}" data-category="${review.category}">Approve</button
+                            <button class="btn btn-approve" data-id="${review.id}" data-category="${review.category}">Approve</button>
                             <button class="btn btn-reject" data-id="${review.id}" data-category="${review.category}">Reject</button>
                         </div>`;
                     grid.appendChild(card);
@@ -725,7 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const formattedDate = formatDateOrDaysAgo(message.timestamp);
                     const status = message.status || 'unread';
                     const statusButtonText = status === 'unread' ? 'Mark as Read' : 'Mark as Unread';
-                    const statusButtonClass = status === 'unread' ? 'btn-approve' : 'btn';
+                    const statusButtonClass = status === 'unread' ? 'btn-approve' : 'btn-reject';
+
                     card.innerHTML = `
                         <div class="review-card-content">
                             <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${message.subject}</h3>
@@ -735,10 +717,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="date" style="font-size: 0.9rem; color: #aaa; margin-bottom: 1rem;">
                                 Received: ${formattedDate}
                             </div>
-                            <p style="font-size: 1ல்; line-height: 1.5; margin-bottom: 1rem; border-left: 3px solid var(--accent-gold); padding-left: 1rem;">
+                            <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem; border-left: 3px solid var(--accent-gold); padding-left: 1rem;">
                                 ${message.message}
-                            </p
-
+                            </p>
                             <p style="font-weight: bold; color: ${status === 'unread' ? 'var(--accent-gold)' : '#aaa'}; font-size: 0.9rem;">
                                 Status: ${status.charAt(0).toUpperCase() + status.slice(1)}
                             </p>
@@ -797,10 +778,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         target.closest('.admin-actions').innerHTML = `<p style="text-align: right; font-weight: bold; color: #aaa;">Deleted</p>`;
                         showMessage('#admin', "Review deleted successfully.", false);
                     } else {
-                        const newStatus = target.classList.containsJ('btn-approve') ? 'approved' : 'rejected';
+                        const newStatus = target.classList.contains('btn-approve') ? 'approved' : 'rejected';
                         await updateDoc(reviewDocRef, { status: newStatus });
                         target.closest('.review-card').style.opacity = '0.5';
-                        target.closest('.admin-actions').innerHTML = `<p style="text-align: right\ font-weight: bold; color: ${newStatus === 'approved' ? 'var(--accent-gold)' : '#aaa'}">${在新Status.charAt(0).toUpperCase() + newStatus.slice(1)}</p>`;
+                        target.closest('.admin-actions').innerHTML = `<p style="text-align: right; font-weight: bold; color: ${newStatus === 'approved' ? 'var(--accent-gold)' : '#aaa'}">${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}</p>`;
                         showMessage('#admin', `Review ${newStatus} successfully.`, false);
                     }
                 } catch (error) {
@@ -824,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         new URL(validUrl);
                         console.log(`Saving product link for ${normTitle} by user ${state.user.id}: ${validUrl}`);
                         await setDoc(doc(db, 'product-links', normTitle), {
-                        productUrl: validUrl,
+                            productUrl: validUrl,
                             category,
                             originalTitle
                         });
@@ -967,4 +948,4 @@ function formatDateOrDaysAgo(timestamp) {
     } else {
         return date.toLocaleDateString('en-GB');
     }
-}
+}   
